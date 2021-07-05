@@ -1,10 +1,19 @@
 import os.path
 import tkinter as tk
+import sys
+import os
 
 from .keyboard_keys_view import KeyboardKeysView
 from .lfo_view import LfoView
 
-DIR_NAME = os.path.dirname(__file__)
+#DIR_NAME = os.path.dirname(__file__)
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
 
 class MainView(tk.Frame):
     def __init__(self, window, rompler, *a, **kw):
@@ -13,7 +22,7 @@ class MainView(tk.Frame):
         self._window = window
 
         # Set up the main window
-        window.title("Subwoofler")
+        window.title("Crazy Sampler")
         window.geometry("800x760+360+20")
         window.config(bg="#ffffff")
         window.resizable(0,0)
@@ -35,7 +44,7 @@ class MainView(tk.Frame):
         self._keyboard_keys_view.on_key_released(key)
 
     def _create_background_image(self):
-        image_path = os.path.join(DIR_NAME, "images/keyboard.ppm")
+        image_path = resource_path("images/keyboard.ppm")
         background_image = tk.PhotoImage(file=image_path)
 
         self._canvas.configure(
@@ -47,7 +56,7 @@ class MainView(tk.Frame):
         return background_image
 
     def _create_logo(self):
-        image_path = os.path.join(DIR_NAME, "images/bark180navy.ppm")
+        image_path = resource_path("images/logo.ppm")
         image = tk.PhotoImage(file=image_path)
         self._logo_label = tk.Label(None, image=image)
 
