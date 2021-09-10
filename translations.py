@@ -17,6 +17,7 @@ KEYBOARD_KEY_TO_MIDI_NOTE = {
 
 from config import CENTRAL_NOTE
 
+
 def midi_note_to_speed(midi_note):
     difference = midi_note - CENTRAL_NOTE
     return pow(2, difference / 12)
